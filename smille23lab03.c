@@ -9,8 +9,7 @@ gcc -Wall smille23lab03.c -o lab03
 run:
 ./lab03
 
-
-This file is a practice test for the integration of char sorting
+this is the final version. this comment was updated on 6/23/26, orginal commit was on 06/21/26
 */
 
 // Library declarations
