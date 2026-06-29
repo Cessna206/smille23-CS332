@@ -7,7 +7,7 @@ Compile :
 gcc -Wall smille23lab04.c -o lab04
 
 run:
-./lab04
+./lab04 file1.txt file2.txt
 
 
 This file is a practice test for the integration of char sorting
@@ -26,29 +26,29 @@ int main(int argc, char *argv[]) {
     char buf[BUFFSIZE];
     ssize_t n;
 
-    /* Check correct number of arguments */
+    // Check correct number of arguments 
     if (argc != 3) {
         printf("Usage: %s <file1> <file2>\n", argv[0]);
         exit(-1);
     }
 
-    /* Check that the two filenames are not the same */
+    // Check that the two filenames are not the same 
     if (strcmp(argv[1], argv[2]) == 0) {
         printf("Error: file1 and file2 must be different files.\n");
         exit(-1);
     }
 
-    /* Open file2 (the source to be appended) in read-only mode */
+    // Open file2 (the source to be appended) in read-only mode 
     fd2 = open(argv[2], O_RDONLY);
     if (fd2 < 0) {
         printf("Error: could not open %s\n", argv[2]);
         exit(-1);
     }
 
-    /* Open file1 for writing, appending to the end of its existing content.
-     * We do NOT use O_TRUNC here, since we want to keep file1's original
-     * content and add to it rather than overwrite it.
-     */
+    // Open file1 for writing, appending to the end of its existing content.
+    // We do NOT use O_TRUNC here, since we want to keep file1's original
+    // content and add to it rather than overwrite it.
+
     fd1 = open(argv[1], O_WRONLY | O_APPEND);
     if (fd1 < 0) {
         printf("Error: could not open %s\n", argv[1]);
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
-    /* Read from file2 in chunks and write each chunk to the end of file1 */
+    // Read from file2 in chunks and write each chunk to the end of file1
     while ((n = read(fd2, buf, BUFFSIZE)) > 0) {
         if (write(fd1, buf, n) != n) {
             printf("Error: write error while appending to %s\n", argv[1]);
@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
-    /* Close both file descriptors */
+    // Close both file descriptors
     close(fd1);
     close(fd2);
 
