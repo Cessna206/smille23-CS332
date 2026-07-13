@@ -9,11 +9,14 @@ lists the files, and their type.
 
 
 Compile:
-gcc -Wall -o lab05 smille23lab05.c
+First, change directories via 'cd Lab05' 
+then run 'gcc -Wall -o lab05 smille23lab05.c'
 
 run: 
-./lab05 /"directorypath"
-remove quotation, leave forward slash
+to run the code, tpye './lab05 /"directorypath"'
+for specific directory traversal remove quotation, leave forward slash
+more easily, type './lab05 ..' for a good demonstration.
+
 
 If no directory is given, it defaults to the current directory:
 ./lab05
