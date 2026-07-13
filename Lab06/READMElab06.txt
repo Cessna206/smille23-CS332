@@ -24,7 +24,8 @@ however, if you would like to use its functionality
 type 'make' and then you will have access to:
 make run            --> Compiles and runs on listings.csv in one command
 make clean          --> deletes the generated csv files 
-make see
+make see            --> displays the first 5 lines a little more cleanly 
+
 note: output files contain many rows. do not use cat to display them. rather, use
 head -n 10 'filename.filetype'
 
