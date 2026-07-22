@@ -1,4 +1,0 @@
-tree
-sleep 1
-sleep 2
-ls -la
