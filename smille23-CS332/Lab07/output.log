@@ -1,0 +1,4 @@
+tree	Tue Jul 21 23:10:12 2026	Tue Jul 21 23:10:12 2026
+sleep 1	Tue Jul 21 23:10:12 2026	Tue Jul 21 23:10:13 2026
+sleep 2	Tue Jul 21 23:10:13 2026	Tue Jul 21 23:10:15 2026
+ls -la	Tue Jul 21 23:10:15 2026	Tue Jul 21 23:10:15 2026
