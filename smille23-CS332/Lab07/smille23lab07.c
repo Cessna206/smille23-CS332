@@ -22,23 +22,24 @@ run:
 #define MAX_LINE 1024
 #define MAX_ARGS 64
  
-// splits a line like "uname -a" into an array execvp can use
-// ex: args[0] = "uname", args[1] = "-a", args[2] = NULL
+// splits a line like uname -a into an array
 int parse_line(char *line, char *args[]) {
     int count = 0;
     char *token = strtok(line, " \t\n");
  
+    //while loop for parsing the line into an array of arguments
     while (token != NULL && count < MAX_ARGS - 1) {
         args[count] = token;
         count++;
         token = strtok(NULL, " \t\n");
     }
-    args[count] = NULL; // execvp needs this NULL at the end
+    args[count] = NULL; 
+    // execvp needs this NULL at the end
  
     return count;
 }
  
-// ctime adds a newline at the end, so this just chops it off
+// ctime adds a newline at the end, this just chops it off
 // so the timestamp fits on the same log line as everything else
 void format_time(time_t t, char *out, size_t outsize) {
     char *raw = ctime(&t);
@@ -93,25 +94,27 @@ void run_command(const char *original_line, char *args[], FILE *logfile) {
     }
 }
  
+// main function 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         printf("usage: %s filename\n", argv[0]);
         return 1;
     }
- 
+    // open the input file for reading
     FILE *file = fopen(argv[1], "r");
     if (file == NULL) {
         printf("Could not open file\n");
         return 1;
     }
- 
+    // open the output log file for writing
     FILE *logfile = fopen("output.log", "w");
     if (logfile == NULL) {
+        // if we can't open the log file, close the input file and exit
         printf("Could not open output.log\n");
         fclose(file);
         return 1;
     }
- 
+    // read each line from the input file, parse it, and run the command
     char line[MAX_LINE];
     while (fgets(line, sizeof(line), file) != NULL) {
         // skip blank lines
@@ -125,19 +128,22 @@ int main(int argc, char *argv[]) {
         // save the original line before strtok chews it up,
         // since we still need it for the log
         char original_line[MAX_LINE];
+        // copy the line into original_line, ensuring null termination
         strncpy(original_line, line, sizeof(original_line) - 1);
+        // ensure null termination
         original_line[sizeof(original_line) - 1] = '\0';
+        // remove the newline from the end of the original line
         size_t len = strlen(original_line);
         if (len > 0 && original_line[len - 1] == '\n') {
             original_line[len - 1] = '\0';
         }
- 
+        // parse the line into an array of arguments
         char *args[MAX_ARGS];
         parse_line(line, args);
- 
+        // run the command and log the times
         run_command(original_line, args, logfile);
     }
- 
+    // close the files
     fclose(file);
     fclose(logfile);
  
